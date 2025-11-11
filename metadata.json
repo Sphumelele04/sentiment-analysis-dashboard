@@ -1,0 +1,5 @@
+{
+  "name": "SentraMind",
+  "description": "An interactive dashboard to analyze sentiment in text data using the Gemini API. It supports direct input, file uploads, batch processing, and provides visualizations, keyword extraction, and confidence scores. It also includes an accuracy report comparing API results against a pre-analyzed dataset.",
+  "requestFramePermissions": []
+}
