@@ -8,10 +8,10 @@ interface SentimentBadgeProps {
 
 const SentimentBadge: React.FC<SentimentBadgeProps> = ({ sentiment }) => {
   const sentimentStyles = {
-    [SentimentLabel.Positive]: 'bg-green-500/20 text-green-300 border-green-500/30',
-    [SentimentLabel.Negative]: 'bg-red-500/20 text-red-300 border-red-500/30',
-    [SentimentLabel.Neutral]: 'bg-gray-500/20 text-gray-300 border-gray-500/30',
-    [SentimentLabel.Error]: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
+    [SentimentLabel.Positive]: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-300 dark:border-emerald-500/30',
+    [SentimentLabel.Negative]: 'bg-rose-100 text-rose-800 border-rose-200 dark:bg-rose-900/50 dark:text-rose-300 dark:border-rose-500/30',
+    [SentimentLabel.Neutral]: 'bg-sky-100 text-sky-800 border-sky-200 dark:bg-sky-900/50 dark:text-sky-300 dark:border-sky-500/30',
+    [SentimentLabel.Error]: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/50 dark:text-amber-300 dark:border-amber-500/30',
   };
 
   return (

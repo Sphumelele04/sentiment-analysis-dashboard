@@ -5,16 +5,17 @@ import { AnalysisResult, SentimentLabel } from '../types';
 
 interface SentimentChartProps {
     data: AnalysisResult[];
+    theme: 'light' | 'dark';
 }
 
 const COLORS = {
-    [SentimentLabel.Positive]: '#22c55e', // green-500
-    [SentimentLabel.Negative]: '#ef4444', // red-500
-    [SentimentLabel.Neutral]: '#6b7280', // gray-500
-    [SentimentLabel.Error]: '#eab308', // yellow-500
+    [SentimentLabel.Positive]: '#10b981', // emerald-500
+    [SentimentLabel.Negative]: '#f43f5e', // rose-500
+    [SentimentLabel.Neutral]: '#0ea5e9', // sky-500
+    [SentimentLabel.Error]: '#f59e0b',   // amber-500
 };
 
-export const SentimentChart: React.FC<SentimentChartProps> = ({ data }) => {
+export const SentimentChart: React.FC<SentimentChartProps> = ({ data, theme }) => {
     const sentimentCounts = data.reduce((acc, curr) => {
         acc[curr.sentiment] = (acc[curr.sentiment] || 0) + 1;
         return acc;
@@ -26,6 +27,8 @@ export const SentimentChart: React.FC<SentimentChartProps> = ({ data }) => {
     }));
     
     if (!chartData.length) return null;
+
+    const isDarkMode = theme === 'dark';
 
     return (
         <div style={{ width: '100%', height: 180 }}>
@@ -40,7 +43,7 @@ export const SentimentChart: React.FC<SentimentChartProps> = ({ data }) => {
                         fill="#8884d8"
                         dataKey="value"
                         nameKey="name"
-                        stroke="#374151" // gray-700
+                        stroke={isDarkMode ? "#1e293b" : "#ffffff"} // slate-800 / white
                     >
                         {chartData.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[entry.name]} />
@@ -48,8 +51,8 @@ export const SentimentChart: React.FC<SentimentChartProps> = ({ data }) => {
                     </Pie>
                     <Tooltip 
                         contentStyle={{ 
-                            backgroundColor: '#1f2937', // gray-800
-                            borderColor: '#4b5563', // gray-600
+                            backgroundColor: isDarkMode ? '#1e293b' : '#ffffff', // slate-800 / white
+                            borderColor: isDarkMode ? '#334155' : '#e2e8f0', // slate-700 / slate-200
                             borderRadius: '0.5rem'
                         }}
                     />
@@ -59,7 +62,7 @@ export const SentimentChart: React.FC<SentimentChartProps> = ({ data }) => {
                         layout="vertical"
                         verticalAlign="middle"
                         align="right"
-                        formatter={(value, entry) => <span className="text-gray-300">{value}</span>}
+                        formatter={(value) => <span className={isDarkMode ? "text-slate-300" : "text-slate-700"}>{value}</span>}
                     />
                 </PieChart>
             </ResponsiveContainer>

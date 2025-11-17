@@ -1,14 +1,6 @@
 
 import { SampleText, SentimentLabel } from './types';
 
-export const API_LIMITATIONS_DISCUSSION = `
-The Gemini API, while powerful, has inherent limitations in sentiment analysis. As a large language model (LLM), its understanding of sentiment is derived from patterns in its vast training data, not from genuine emotional comprehension. This can lead to challenges with nuanced language such as sarcasm, irony, or culturally specific expressions, which may be misinterpreted. For example, a phrase like "Oh, great, another meeting" could be classified as positive due to the word 'great', while the intended sentiment is negative.
-
-The model's performance can also be influenced by the domain of the text. It might perform exceptionally well on generic product reviews but struggle with specialized jargon in legal or medical texts. Bias present in the training data is another significant concern. The model may inadvertently reflect societal biases, potentially leading to skewed sentiment scores for texts related to certain demographics or topics. The 'confidence score' provided is not a statistical probability but rather the model's own estimation of its certainty, which can sometimes be overconfident in incorrect classifications.
-
-Furthermore, the model's analysis is limited to the text provided and lacks broader context. A review saying "The battery life is amazing, but the screen is terrible" contains both positive and negative elements. The model must aggregate these into a single classification (Positive, Negative, or Neutral), which can oversimplify the user's true sentiment. In our tests, while the API demonstrates high overall accuracy, these limitations are most apparent in borderline cases or texts requiring deep contextual understanding. Therefore, while this tool is excellent for identifying broad sentiment trends, critical decisions should always involve human oversight to account for these nuances and potential inaccuracies.
-`;
-
 export const SAMPLE_TEXTS: SampleText[] = [
     { text: "This is the best purchase I've ever made! Absolutely love it.", groundTruth: SentimentLabel.Positive },
     { text: "The product arrived broken and the customer service was terrible.", groundTruth: SentimentLabel.Negative },

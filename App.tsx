@@ -1,70 +1,62 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SentimentAnalyzer from './components/SentimentAnalyzer';
-import AccuracyReport from './components/AccuracyReport';
-import { AnalysisIcon, ReportIcon } from './components/Icons';
+import { AnalysisIcon, SunIcon, MoonIcon } from './components/Icons';
 
-type View = 'analyzer' | 'report';
-
-// Fix: Define a props interface for NavButton to help TypeScript correctly interpret the component signature.
-interface NavButtonProps {
-  view: View;
-  label: string;
-  children: React.ReactNode;
-}
+type Theme = 'light' | 'dark';
 
 const App: React.FC = () => {
-  const [activeView, setActiveView] = useState<View>('analyzer');
+  const [theme, setTheme] = useState<Theme>('light');
 
-  const renderView = () => {
-    switch (activeView) {
-      case 'analyzer':
-        return <SentimentAnalyzer />;
-      case 'report':
-        return <AccuracyReport />;
-      default:
-        return <SentimentAnalyzer />;
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as Theme | null;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    setTheme(initialTheme);
+  }, []);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };
-  
-  // Fix: Explicitly type NavButton as a React.FC to ensure TypeScript correctly recognizes its props, including 'children'.
-  const NavButton: React.FC<NavButtonProps> = ({ view, label, children }) => (
-    <button
-      onClick={() => setActiveView(view)}
-      className={`flex items-center justify-center w-full sm:w-auto px-4 py-3 sm:py-2 rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-indigo-500 ${
-        activeView === view
-          ? 'bg-indigo-600 text-white shadow-lg'
-          : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-      }`}
-    >
-      {children}
-      <span className="ml-2 hidden sm:inline">{label}</span>
-    </button>
-  );
 
   return (
-    <div className="bg-gray-900 text-gray-100 min-h-screen font-sans">
-      <header className="bg-gray-800/50 backdrop-blur-sm shadow-lg sticky top-0 z-10">
+    <div className="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen font-sans transition-colors duration-300">
+      <header className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm shadow-sm sticky top-0 z-10 border-b border-slate-200 dark:border-slate-700">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-xl md:text-2xl font-bold text-white tracking-wider">
+          <h1 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white tracking-wider">
             SentraMind
           </h1>
-          <nav className="flex space-x-2">
-            <NavButton view="analyzer" label="Analyzer">
-              <AnalysisIcon />
-            </NavButton>
-            <NavButton view="report" label="Accuracy Report">
-              <ReportIcon />
-            </NavButton>
-          </nav>
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center justify-center px-4 py-3 sm:py-2 rounded-lg bg-blue-600 text-white shadow-lg">
+                <AnalysisIcon />
+                <span className="ml-2 hidden sm:inline">Analyzer</span>
+            </div>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? <MoonIcon className="w-5 h-5"/> : <SunIcon className="w-5 h-5"/>}
+            </button>
+          </div>
         </div>
       </header>
       
       <main className="container mx-auto p-4 md:p-6">
-        {renderView()}
+        <SentimentAnalyzer theme={theme} />
       </main>
 
-      <footer className="text-center py-4 text-gray-500 text-sm">
+      <footer className="text-center py-4 text-slate-500 dark:text-slate-400 text-sm">
         <p>Powered by Google Gemini API</p>
       </footer>
     </div>

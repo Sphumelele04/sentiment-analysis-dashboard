@@ -17,5 +17,7 @@ export const ExplanationIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {
 export const ScoreIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props}><path d="M14 9.5L12 12l-2-2.5"></path><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"></path></Icon>;
 export const AnalysisIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props}><path d="M12 3v18"></path><path d="M8 17.5a4 4 0 0 1 0-7"></path><path d="M16 6.5a4 4 0 0 1 0 7"></path></Icon>;
 export const ReportIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props}><path d="M8 6h10"></path><path d="M6 12h9"></path><path d="M11 18h4"></path><path d="M3 3v18h18"></path></Icon>;
+export const SunIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></Icon>;
+export const MoonIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></Icon>;
 
 export default Icon;
